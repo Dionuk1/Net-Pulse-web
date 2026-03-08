@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { agentGet } from "@/lib/agentProxy";
+import { pingHost } from "@/lib/windowsNetwork";
 
 export async function GET(request: NextRequest) {
   const ip = request.nextUrl.searchParams.get("ip")?.trim() ?? "";
@@ -8,7 +9,12 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const result = await agentGet<{ host: string; online: boolean; latencyMs: number | null }>(`/ping?host=${encodeURIComponent(ip)}`);
+    const result = await agentGet<{ host: string; online: boolean; latencyMs: number | null }>(`/ping?host=${encodeURIComponent(ip)}`).catch(
+      async () => {
+        const fallback = await pingHost(ip);
+        return { host: ip, online: fallback.online, latencyMs: fallback.latencyMs };
+      },
+    );
     return NextResponse.json({ ip: result.host, online: result.online, latencyMs: result.latencyMs });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Failed to ping host.";

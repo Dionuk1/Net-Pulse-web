@@ -67,6 +67,12 @@ function resolveSpeedtestBin(): { bin: string | null; checked: string[] } {
     return { bin: commonLocal, checked };
   }
 
+  const nextToProject = path.join(path.dirname(projectRoot), "ookla-speedtest-1.2.0-win64", "speedtest.exe");
+  checked.push(nextToProject);
+  if (fs.existsSync(nextToProject)) {
+    return { bin: nextToProject, checked };
+  }
+
   const rootEntries = fs.readdirSync(projectRoot, { withFileTypes: true });
   for (const entry of rootEntries) {
     if (!entry.isDirectory()) continue;
@@ -85,6 +91,16 @@ function resolveSpeedtestBin(): { bin: string | null; checked: string[] } {
     return { bin: legacyPath, checked };
   }
 
+  const userProfile = process.env.USERPROFILE || "";
+  if (userProfile) {
+    const downloadsPath = path.join(userProfile, "Downloads");
+    const knownDownload = path.join(downloadsPath, "ookla-speedtest-1.2.0-win64", "speedtest.exe");
+    checked.push(knownDownload);
+    if (fs.existsSync(knownDownload)) {
+      return { bin: knownDownload, checked };
+    }
+  }
+
   return { bin: null, checked };
 }
 
@@ -96,7 +112,11 @@ export async function POST() {
   const { bin: speedtestBin, checked } = resolveSpeedtestBin();
   if (!speedtestBin) {
     return NextResponse.json(
-      { error: `Speedtest executable not found. Checked: ${checked.join(" | ")}` },
+      {
+        error:
+          "Speedtest executable not found. Add speedtest.exe under ./ookla-speedtest-1.2.0-win64/ or set NETPULSE_SPEEDTEST_BIN in .env.local.",
+        checkedPaths: checked.slice(0, 6),
+      },
       { status: 500 },
     );
   }
