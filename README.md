@@ -72,8 +72,8 @@ NetPulse helps you:
 ## Clone the Project
 
 ```bash
-git clone https://github.com/Dionuk1/First-Repository-Net-Pulse-app.git
-cd First-Repository-Net-Pulse-app
+git clone https://github.com/Dionuk1/Net-Pulse-app.git
+cd Net-Pulse-app
 ```
 
 ---
@@ -224,59 +224,59 @@ Benefits:
 
 ```text
 netpulse-web
-├─ app
-│  ├─ api
-│  │  ├─ activity/snapshot/route.ts
-│  │  ├─ network/info/route.ts
-│  │  ├─ ping/route.ts
-│  │  ├─ report/advanced/route.ts
-│  │  ├─ scan
-│  │  │  ├─ devices/route.ts
-│  │  │  ├─ os/route.ts
-│  │  │  ├─ ports/route.ts
-│  │  │  └─ vendor/route.ts
-│  │  ├─ speed/history/route.ts
-│  │  ├─ speed/ookla/route.ts
-│  │  ├─ speedtest/run/route.ts
-│  │  ├─ terminal/run/route.ts
-│  │  └─ trust/live/route.ts
-│  ├─ activity/page.tsx
-│  ├─ devices/page.tsx
-│  ├─ report/page.tsx
-│  ├─ settings/page.tsx
-│  ├─ speed/page.tsx
-│  ├─ speedtest/page.tsx
-│  ├─ terminal/page.tsx
-│  ├─ layout.tsx
-│  └─ page.tsx
-├─ components
-│  ├─ GoSpeedtestButton.tsx
-│  ├─ RocketOverlay.tsx
-│  ├─ StarshipCanvas.tsx
-│  ├─ AppControls.tsx
-│  ├─ SidebarNav.tsx
-│  └─ ...
-├─ lib
-│  ├─ api.ts
-│  ├─ agentProxy.ts
-│  ├─ windowsNetwork.ts
-│  ├─ trustScore.ts
-│  ├─ activityLogic.ts
-│  └─ server/db.ts
-├─ local-agent
-│  ├─ src
-│  │  ├─ index.ts
-│  │  ├─ network.ts
-│  │  ├─ terminal.ts
-│  │  ├─ oui.ts
-│  │  ├─ config.ts
-│  │  └─ utils.ts
-│  ├─ package.json
-│  └─ tsconfig.json
-├─ public
-│  └─ animations
-├─ package.json
-└─ README.md
+|-- app
+|   |-- api
+|   |   |-- activity/snapshot/route.ts
+|   |   |-- network/info/route.ts
+|   |   |-- ping/route.ts
+|   |   |-- report/advanced/route.ts
+|   |   |-- scan
+|   |   |   |-- devices/route.ts
+|   |   |   |-- os/route.ts
+|   |   |   |-- ports/route.ts
+|   |   |   `-- vendor/route.ts
+|   |   |-- speed/history/route.ts
+|   |   |-- speed/ookla/route.ts
+|   |   |-- speedtest/run/route.ts
+|   |   |-- terminal/run/route.ts
+|   |   `-- trust/live/route.ts
+|   |-- activity/page.tsx
+|   |-- devices/page.tsx
+|   |-- report/page.tsx
+|   |-- settings/page.tsx
+|   |-- speed/page.tsx
+|   |-- speedtest/page.tsx
+|   |-- terminal/page.tsx
+|   |-- layout.tsx
+|   `-- page.tsx
+|-- components
+|   |-- GoSpeedtestButton.tsx
+|   |-- RocketOverlay.tsx
+|   |-- StarshipCanvas.tsx
+|   |-- AppControls.tsx
+|   |-- SidebarNav.tsx
+|   `-- ...
+|-- lib
+|   |-- api.ts
+|   |-- agentProxy.ts
+|   |-- windowsNetwork.ts
+|   |-- trustScore.ts
+|   |-- activityLogic.ts
+|   `-- server/db.ts
+|-- local-agent
+|   |-- src
+|   |   |-- index.ts
+|   |   |-- network.ts
+|   |   |-- terminal.ts
+|   |   |-- oui.ts
+|   |   |-- config.ts
+|   |   `-- utils.ts
+|   |-- package.json
+|   `-- tsconfig.json
+|-- public
+|   `-- animations
+|-- package.json
+`-- README.md
 ```
 
 ---
@@ -320,7 +320,7 @@ See the [LICENSE](LICENSE) file for full details.
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! If you'd like to improve NetPulse:
 
@@ -334,10 +334,12 @@ Contributions are welcome! If you'd like to improve NetPulse:
 
 ---
 
-## 📧 Contact
+## Contact
 
 The project is open for improvements and new contributions.
 
 For collaboration, suggestions, or questions contact:
 
-Email: `dukshini123@gmail.com`
+Email: [dukshini123@gmail.com](mailto:dukshini123@gmail.com)
+
+Projekti eshte i hapur per permiresime dhe kontribute te reja.
