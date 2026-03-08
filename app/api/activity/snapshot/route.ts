@@ -16,6 +16,7 @@ type AgentDevice = {
   mac: string;
   online: boolean;
   latencyMs: number | null;
+  name?: string;
   vendor?: string;
   openPorts?: number[];
 };
@@ -27,12 +28,29 @@ function suspiciousPortEvent(device: AgentDevice, timestamp: string): DbActivity
 
   return {
     id: `${timestamp}-${device.ip}-${device.mac}-suspicious-port-${suspicious}`,
-    type: "latency_spike",
+    type: "security_alert",
     deviceIp: device.ip,
     deviceMac: device.mac,
-    deviceLabel: device.ip,
+    deviceLabel: device.name || device.ip,
     details: `Suspicious open port detected: ${suspicious}`,
     severity: "critical",
+    timestamp,
+  };
+}
+
+function unknownVendorEvent(device: AgentDevice, timestamp: string): DbActivityEvent | null {
+  const vendor = (device.vendor || "").trim().toLowerCase();
+  const isUnknown = !vendor || vendor === "unknown" || vendor === "n/a";
+  if (!isUnknown) return null;
+
+  return {
+    id: `${timestamp}-${device.ip}-${device.mac}-unknown-vendor`,
+    type: "security_alert",
+    deviceIp: device.ip,
+    deviceMac: device.mac,
+    deviceLabel: device.name || device.ip,
+    details: "Unknown vendor device detected on local network.",
+    severity: "warn",
     timestamp,
   };
 }
@@ -63,9 +81,26 @@ export async function GET() {
 
     const previous = readCurrentDeviceState();
     const diffEvents = buildActivityEvents(previous, currentDevices, timestamp);
-    const suspiciousEvents = devices
-      .map((device) => suspiciousPortEvent(device, timestamp))
-      .filter((event): event is DbActivityEvent => Boolean(event));
+    const prevKeys = new Set(previous.map((item) => `${item.ip}-${item.mac}`.toUpperCase()));
+    const suspiciousEvents = devices.flatMap((device) => {
+      const currentKey = `${device.ip}-${device.mac}`.toUpperCase();
+      const isNewDevice = !prevKeys.has(currentKey);
+      const events: DbActivityEvent[] = [];
+
+      const portEvent = suspiciousPortEvent(device, timestamp);
+      if (portEvent) {
+        events.push(portEvent);
+      }
+
+      if (isNewDevice) {
+        const vendorEvent = unknownVendorEvent(device, timestamp);
+        if (vendorEvent) {
+          events.push(vendorEvent);
+        }
+      }
+
+      return events;
+    });
 
     replaceDeviceState(currentDevices, timestamp);
     insertActivityEvents([...diffEvents, ...suspiciousEvents]);
@@ -77,7 +112,7 @@ export async function GET() {
           mac: device.mac,
           online: device.online,
           latencyMs: device.latencyMs,
-          name: device.ip,
+          name: device.name || device.ip,
         })),
         events: listActivityEvents(120),
         timestamp,

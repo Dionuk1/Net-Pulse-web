@@ -25,8 +25,8 @@ export function buildActivityEvents(previous: DbDeviceSnapshot[], current: DbDev
         deviceIp: next.ip,
         deviceMac: next.mac,
         deviceLabel: label(next),
-        details: `Joined network with IP ${next.ip}`,
-        severity: "info",
+        details: `New device joined network with IP ${next.ip}.`,
+        severity: "warn",
       });
       continue;
     }

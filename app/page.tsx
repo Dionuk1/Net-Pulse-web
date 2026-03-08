@@ -7,9 +7,17 @@ import AnimatedButton from "@/components/AnimatedButton";
 import Card from "@/components/Card";
 import CircularScore from "@/components/CircularScore";
 import ProgressBar from "@/components/ProgressBar";
-import { fetchNetworkInfo, fetchTrustLive, type NetworkInfoResponse, type TrustLiveResponse } from "@/lib/api";
+import { fetchActivitySnapshot, fetchNetworkInfo, fetchTrustLive, type NetworkInfoResponse, type TrustLiveResponse } from "@/lib/api";
 import useAutoRefresh from "@/lib/useAutoRefresh";
 import useI18n from "@/lib/useI18n";
+
+type WarningItem = {
+  id: string;
+  deviceLabel: string;
+  details: string;
+  severity: "warn" | "critical";
+  timestamp: string;
+};
 
 export default function HomePage() {
   const router = useRouter();
@@ -19,6 +27,7 @@ export default function HomePage() {
   const [generatingReport, setGeneratingReport] = useState(false);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [trust, setTrust] = useState<TrustLiveResponse | null>(null);
+  const [warnings, setWarnings] = useState<WarningItem[]>([]);
   const [lastUpdatedAt, setLastUpdatedAt] = useState<number | null>(null);
   const [now, setNow] = useState(Date.now());
   const inFlightRef = useRef(false);
@@ -76,6 +85,36 @@ export default function HomePage() {
       if (timeoutId) {
         clearTimeout(timeoutId);
       }
+    };
+  }, []);
+
+  useEffect(() => {
+    let active = true;
+    let timeoutId: ReturnType<typeof setTimeout> | null = null;
+
+    const tick = async () => {
+      const snapshot = await fetchActivitySnapshot().catch(() => null);
+      if (active && snapshot?.events) {
+        const suspicious: WarningItem[] = snapshot.events
+          .filter((event) => event.type === "security_alert" || event.type === "device_added")
+          .filter((event) => event.severity === "warn" || event.severity === "critical")
+          .slice(0, 4)
+          .map((event): WarningItem => ({
+            id: event.id,
+            deviceLabel: event.deviceLabel,
+            details: event.details,
+            severity: event.severity === "critical" ? "critical" : "warn",
+            timestamp: event.timestamp,
+          }));
+        setWarnings(suspicious);
+      }
+      timeoutId = setTimeout(tick, 120000);
+    };
+
+    void tick();
+    return () => {
+      active = false;
+      if (timeoutId) clearTimeout(timeoutId);
     };
   }, []);
 
@@ -181,6 +220,31 @@ export default function HomePage() {
           <p className="mt-3 text-xs text-[color:var(--np-muted)]">{trust?.recommendation || "Live Trust Score 2.0 is adapting to network behavior."}</p>
         </Card>
       </div>
+
+      <Card className="border-[color:var(--np-border)] bg-[color:var(--np-card)] p-5">
+        <div className="mb-3 flex items-center justify-between">
+          <h2 className="text-lg font-semibold text-[color:var(--np-text)]">Suspicious Device Warnings</h2>
+          <span className={`text-xs font-medium ${warnings.length > 0 ? "text-[color:var(--np-danger)]" : "text-[color:var(--np-muted)]"}`}>
+            {warnings.length > 0 ? `${warnings.length} active` : "No alerts"}
+          </span>
+        </div>
+
+        {warnings.length === 0 && (
+          <p className="text-sm text-[color:var(--np-muted)]">No suspicious device activity detected in recent scans.</p>
+        )}
+
+        {warnings.length > 0 && (
+          <div className="space-y-2">
+            {warnings.map((warning) => (
+              <div key={warning.id} className="rounded-xl border border-red-500/30 bg-red-500/10 px-3 py-2">
+                <p className="text-sm font-semibold text-red-300">{warning.deviceLabel}</p>
+                <p className="text-xs text-red-200/90">{warning.details}</p>
+                <p className="mt-1 text-[11px] text-red-200/70">{new Date(warning.timestamp).toLocaleTimeString()}</p>
+              </div>
+            ))}
+          </div>
+        )}
+      </Card>
 
       <AnimatedButton
         className="flex w-full items-center justify-center gap-2 rounded-2xl py-4 text-lg font-semibold md:max-w-md"

@@ -24,7 +24,7 @@ export type DbDeviceSnapshot = {
 
 export type DbActivityEvent = {
   id: string;
-  type: "device_added" | "device_removed" | "went_offline" | "came_online" | "latency_spike";
+  type: "device_added" | "device_removed" | "went_offline" | "came_online" | "latency_spike" | "security_alert";
   deviceIp: string;
   deviceMac: string;
   deviceLabel: string;

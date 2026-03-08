@@ -9,7 +9,7 @@ import { getPollingIntervalMs } from "@/lib/settings";
 import useAutoRefresh from "@/lib/useAutoRefresh";
 import useSettings from "@/lib/useSettings";
 
-type ActivityEventType = "device_added" | "device_removed" | "went_offline" | "came_online" | "latency_spike";
+type ActivityEventType = "device_added" | "device_removed" | "went_offline" | "came_online" | "latency_spike" | "security_alert";
 
 type ActivityEvent = {
   id: string;
@@ -33,6 +33,7 @@ function formatEventType(type: ActivityEventType): string {
   if (type === "device_removed") return "Device Removed";
   if (type === "came_online") return "Came Online";
   if (type === "went_offline") return "Went Offline";
+  if (type === "security_alert") return "Security Alert";
   return "Latency Spike";
 }
 
@@ -142,6 +143,7 @@ export default function ActivityPage() {
             <option value="came_online">Came online</option>
             <option value="went_offline">Went offline</option>
             <option value="latency_spike">Latency spike</option>
+            <option value="security_alert">Security alert</option>
           </select>
           <label className="flex items-center gap-2 text-sm text-white/80">
             <input

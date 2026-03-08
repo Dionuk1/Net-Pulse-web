@@ -37,7 +37,7 @@ export type ActivitySnapshotResponse = {
   scannedDevices: ActivityDevice[];
   events?: Array<{
     id: string;
-    type: "device_added" | "device_removed" | "went_offline" | "came_online" | "latency_spike";
+    type: "device_added" | "device_removed" | "went_offline" | "came_online" | "latency_spike" | "security_alert";
     deviceLabel: string;
     details: string;
     severity: "info" | "warn" | "critical";
@@ -64,7 +64,7 @@ export type AdvancedReportResponse = {
   speedHistory: SpeedHistoryApiItem[];
   activityEvents: Array<{
     id: string;
-    type: "device_added" | "device_removed" | "went_offline" | "came_online" | "latency_spike";
+    type: "device_added" | "device_removed" | "went_offline" | "came_online" | "latency_spike" | "security_alert";
     deviceLabel: string;
     details: string;
     severity: "info" | "warn" | "critical";
