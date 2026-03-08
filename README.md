@@ -317,3 +317,27 @@ netpulse-web
 This project is licensed under the **MIT License**.
 
 See the [LICENSE](LICENSE) file for full details.
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! If you'd like to improve NetPulse:
+
+- Fork the repository
+- Create a new branch:
+  `git checkout -b feature/your-feature-name`
+- Make your changes and commit them:
+  `git commit -m "Add new feature or improvement"`
+- Push the branch to your fork
+- Open a Pull Request
+
+---
+
+## 📧 Contact
+
+The project is open for improvements and new contributions.
+
+For collaboration, suggestions, or questions contact:
+
+Email: `dukshini123@gmail.com`
