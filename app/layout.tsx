@@ -32,16 +32,20 @@ export default function RootLayout({
       <body suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable} min-h-screen text-[color:var(--np-text)]`}>
         <ThemeSync />
         <div className="min-h-screen px-4 py-4 md:px-6 md:py-6">
-          <div className="mx-auto w-full max-w-[430px] md:max-w-[1100px]">
+          <div className="print-hide mx-auto w-full max-w-[430px] md:max-w-[1100px]">
             <AppControls />
           </div>
-          <div className="mx-auto w-full max-w-[430px] md:hidden" style={{ paddingBottom: "calc(7rem + env(safe-area-inset-bottom))" }}>{children}</div>
+          <div className="print-hide mx-auto w-full max-w-[430px] md:hidden" style={{ paddingBottom: "calc(7rem + env(safe-area-inset-bottom))" }}>{children}</div>
 
-          <div className="mx-auto hidden w-full max-w-[1100px] grid-cols-[250px_1fr] gap-6 md:grid">
-            <aside>
+          <div className="print-hide mx-auto hidden w-full max-w-[1100px] grid-cols-[250px_1fr] gap-6 md:grid">
+            <aside className="print-hide">
               <SidebarNav />
             </aside>
             <main className="min-h-[calc(100vh-3rem)]">{children}</main>
+          </div>
+
+          <div className="print-only mx-auto w-full max-w-[1100px]">
+            <main>{children}</main>
           </div>
 
           <BottomNav />

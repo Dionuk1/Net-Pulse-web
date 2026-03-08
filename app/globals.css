@@ -106,4 +106,12 @@ body {
     box-shadow: none !important;
     border-color: #d9d9d9 !important;
   }
+
+  .print-only {
+    display: block !important;
+  }
+}
+
+.print-only {
+  display: none;
 }

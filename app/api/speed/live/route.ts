@@ -11,6 +11,7 @@ type SpeedSample = {
 };
 
 let previousSample: SpeedSample | null = null;
+let lastLiveErrorLogMs = 0;
 
 function toMbps(bytesDelta: number, msDelta: number): number {
   if (bytesDelta <= 0 || msDelta <= 0) return 0;
@@ -45,7 +46,7 @@ $stats = Get-NetAdapterStatistics -Name $cfg.InterfaceAlias;
 
   try {
     const { stdout } = await execFileAsync("powershell.exe", ["-NoProfile", "-Command", psScript], {
-      timeout: 7000,
+      timeout: 12000,
       windowsHide: true,
       maxBuffer: 1024 * 1024,
     });
@@ -75,6 +76,14 @@ $stats = Get-NetAdapterStatistics -Name $cfg.InterfaceAlias;
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Failed to read live bandwidth.";
-    return NextResponse.json({ error: message, rxMbps: 0, txMbps: 0, interfaceAlias: "unknown", timestamp: new Date().toISOString() }, { status: 500 });
+    const now = Date.now();
+    if (now - lastLiveErrorLogMs > 60_000) {
+      console.warn("[speed/live] fallback to zero sample:", message);
+      lastLiveErrorLogMs = now;
+    }
+    return NextResponse.json(
+      { rxMbps: 0, txMbps: 0, interfaceAlias: "unknown", degraded: true, timestamp: new Date().toISOString() },
+      { status: 200 },
+    );
   }
 }

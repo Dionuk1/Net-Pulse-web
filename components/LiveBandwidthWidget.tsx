@@ -40,10 +40,10 @@ export default function LiveBandwidthWidget() {
         setLatest(result);
         setErrorText(null);
         setPoints((current) => [...current, { rx: result.rxMbps, tx: result.txMbps }].slice(-MAX_POINTS));
-      } catch (error) {
+      } catch {
         if (!active) return;
-        const message = error instanceof Error ? error.message : "Live bandwidth monitor unavailable.";
-        setErrorText(message);
+        setErrorText("Live bandwidth probe is unavailable right now. Retrying...");
+        setPoints((current) => [...current, { rx: 0, tx: 0 }].slice(-MAX_POINTS));
       } finally {
         if (active) {
           timer = setTimeout(tick, POLL_MS);
@@ -96,6 +96,7 @@ export default function LiveBandwidthWidget() {
           <path d={chart.rxPath} fill="none" stroke="#34d399" strokeWidth="2.2" strokeLinecap="round" />
           <path d={chart.txPath} fill="none" stroke="#22d3ee" strokeWidth="2.2" strokeLinecap="round" />
         </svg>
+        {points.length < 2 && <p className="px-1 pb-1 text-xs text-[color:var(--np-muted)]">Collecting live samples...</p>}
       </div>
 
       <div className="mt-2 flex items-center gap-4 text-xs text-[color:var(--np-muted)]">
