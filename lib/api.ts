@@ -1,8 +1,10 @@
-﻿export type NetworkInfoResponse = {
+export type NetworkInfoResponse = {
   ssid: string;
   localIp: string;
   gateway: string;
   dnsServers: string[];
+  wifiIp?: string;
+  lanIp?: string;
 };
 
 export type ScannedDeviceResponse = {
@@ -237,3 +239,4 @@ export async function runTerminalCommand(cmd: TerminalCommand, args = ""): Promi
 
   return payload;
 }
+

@@ -9,6 +9,8 @@ export type NetworkInfo = {
   localIp: string;
   gateway: string;
   dnsServers: string[];
+  wifiIp?: string;
+  lanIp?: string;
 };
 
 export type ScannedDevice = {
@@ -72,6 +74,26 @@ function getWifiPrivateIpsFromOs(): string[] {
     if (!entries) continue;
     if (isLikelyVirtualInterface(interfaceName)) continue;
     if (!/(wi-?fi|wlan|wireless)/i.test(interfaceName)) continue;
+    for (const entry of entries) {
+      if (entry.family !== "IPv4") continue;
+      if (entry.internal) continue;
+      if (!isLocalIPv4(entry.address)) continue;
+      if (entry.address.startsWith("169.254.")) continue;
+      ips.push(entry.address);
+    }
+  }
+
+  return ips;
+}
+
+function getLanPrivateIpsFromOs(): string[] {
+  const interfaces = os.networkInterfaces();
+  const ips: string[] = [];
+
+  for (const [interfaceName, entries] of Object.entries(interfaces)) {
+    if (!entries) continue;
+    if (isLikelyVirtualInterface(interfaceName)) continue;
+    if (/(wi-?fi|wlan|wireless)/i.test(interfaceName)) continue;
     for (const entry of entries) {
       if (entry.family !== "IPv4") continue;
       if (entry.internal) continue;
@@ -302,10 +324,11 @@ try { $dns = (Get-DnsClientServerAddress -InterfaceIndex $cfg.InterfaceIndex -Ad
   let localIp = parsed.localIp ?? "";
   let gateway = parsed.gateway ?? "";
   const dnsServers = (parsed.dnsServers ?? []).filter(isIPv4Address);
+  const wifiCandidates = getWifiPrivateIpsFromOs();
+  const lanCandidates = getLanPrivateIpsFromOs();
 
   if (!isIPv4Address(localIp)) {
     const localCandidates = getLocalPrivateIpsFromOs().filter((ip) => !ip.startsWith("169.254."));
-    const wifiCandidates = getWifiPrivateIpsFromOs();
     const preferWifi = ssid !== "Wired (Ethernet)" && ssid !== "Unknown";
     localIp = preferWifi && wifiCandidates.length > 0 ? wifiCandidates[0] : (localCandidates[0] ?? "");
   }
@@ -320,7 +343,14 @@ try { $dns = (Get-DnsClientServerAddress -InterfaceIndex $cfg.InterfaceIndex -Ad
     return { ...fallback, ssid, gateway };
   }
 
-  return { ssid, localIp, gateway, dnsServers };
+  return {
+    ssid,
+    localIp,
+    gateway,
+    dnsServers,
+    wifiIp: wifiCandidates[0] || "",
+    lanIp: lanCandidates[0] || "",
+  };
 }
 
 export async function scanArpDevices(): Promise<ScannedDevice[]> {

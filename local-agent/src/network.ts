@@ -9,6 +9,8 @@ export type NetworkInfo = {
   localIp: string;
   gateway: string;
   dns: string[];
+  wifiIp?: string;
+  lanIp?: string;
 };
 
 export type PortScanItem = {
@@ -76,6 +78,24 @@ function getWifiPrivateIpsFromOs(): string[] {
     if (!entries) continue;
     if (isLikelyVirtualInterface(interfaceName)) continue;
     if (!/(wi-?fi|wlan|wireless)/i.test(interfaceName)) continue;
+    for (const entry of entries) {
+      if (entry.family !== "IPv4") continue;
+      if (entry.internal) continue;
+      if (!isLocalIPv4(entry.address)) continue;
+      if (entry.address.startsWith("169.254.")) continue;
+      ips.push(entry.address);
+    }
+  }
+  return ips;
+}
+
+function getLanPrivateIpsFromOs(): string[] {
+  const interfaces = os.networkInterfaces();
+  const ips: string[] = [];
+  for (const [interfaceName, entries] of Object.entries(interfaces)) {
+    if (!entries) continue;
+    if (isLikelyVirtualInterface(interfaceName)) continue;
+    if (/(wi-?fi|wlan|wireless)/i.test(interfaceName)) continue;
     for (const entry of entries) {
       if (entry.family !== "IPv4") continue;
       if (entry.internal) continue;
@@ -299,6 +319,7 @@ try { $dns = (Get-DnsClientServerAddress -InterfaceIndex $cfg.InterfaceIndex -Ad
 
   const localCandidates = getLocalPrivateIpsFromOs().filter((ip) => !ip.startsWith("169.254."));
   const wifiCandidates = getWifiPrivateIpsFromOs();
+  const lanCandidates = getLanPrivateIpsFromOs();
   const preferWifi = ssid !== "Wired (Ethernet)" && ssid !== "Unknown";
   const localFromRoute = defaultRoute.interfaceIp;
   const localIp = preferWifi && wifiCandidates.length > 0
@@ -309,7 +330,14 @@ try { $dns = (Get-DnsClientServerAddress -InterfaceIndex $cfg.InterfaceIndex -Ad
         ? localFromRoute
         : localCandidates[0] || getLocalIpFromOs();
 
-  return { ssid, localIp, gateway, dns };
+  return {
+    ssid,
+    localIp,
+    gateway,
+    dns,
+    wifiIp: wifiCandidates[0] || "",
+    lanIp: lanCandidates[0] || "",
+  };
 }
 
 export async function pingHost(host: string): Promise<{ host: string; online: boolean; latencyMs: number | null; ttl: number | null; output: string }> {

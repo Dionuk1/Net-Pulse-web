@@ -132,6 +132,8 @@ export default function HomePage() {
     () => ({
       ssid: networkInfo?.ssid || "Unknown Network",
       ip: networkInfo?.localIp || "0.0.0.0",
+      wifiIp: networkInfo?.wifiIp || "",
+      lanIp: networkInfo?.lanIp || "",
       gateway: networkInfo?.gateway || "N/A",
       dnsServers: networkInfo?.dnsServers ?? [],
     }),
@@ -182,6 +184,8 @@ export default function HomePage() {
         <Card className="border-[color:var(--np-border)] bg-[color:var(--np-card)] p-5">
           <p className="text-base font-semibold text-[color:var(--np-text)]">{displayNetwork.ssid}</p>
           <p className="text-sm text-[color:var(--np-muted)]">IP: {displayNetwork.ip}</p>
+          {displayNetwork.wifiIp && <p className="text-sm text-[color:var(--np-muted)]">Wi-Fi IP: {displayNetwork.wifiIp}</p>}
+          {displayNetwork.lanIp && <p className="text-sm text-[color:var(--np-muted)]">LAN IP: {displayNetwork.lanIp}</p>}
           <p className="text-sm text-[color:var(--np-muted)]">Gateway: {displayNetwork.gateway}</p>
           {displayNetwork.dnsServers.length > 0 && (
             <p className="text-sm text-[color:var(--np-muted)]">DNS: {displayNetwork.dnsServers.join(", ")}</p>
