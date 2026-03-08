@@ -64,6 +64,26 @@ function isLikelyVirtualInterface(name: string): boolean {
   return /(loopback|vethernet|virtual|vmware|vbox|hyper-v|docker|wsl|tailscale|zerotier|hamachi|npcap)/i.test(name);
 }
 
+function getWifiPrivateIpsFromOs(): string[] {
+  const interfaces = os.networkInterfaces();
+  const ips: string[] = [];
+
+  for (const [interfaceName, entries] of Object.entries(interfaces)) {
+    if (!entries) continue;
+    if (isLikelyVirtualInterface(interfaceName)) continue;
+    if (!/(wi-?fi|wlan|wireless)/i.test(interfaceName)) continue;
+    for (const entry of entries) {
+      if (entry.family !== "IPv4") continue;
+      if (entry.internal) continue;
+      if (!isLocalIPv4(entry.address)) continue;
+      if (entry.address.startsWith("169.254.")) continue;
+      ips.push(entry.address);
+    }
+  }
+
+  return ips;
+}
+
 export function isIPv4Address(ip: string): boolean {
   const parts = ip.split(".");
   if (parts.length !== 4) return false;
@@ -284,8 +304,10 @@ try { $dns = (Get-DnsClientServerAddress -InterfaceIndex $cfg.InterfaceIndex -Ad
   const dnsServers = (parsed.dnsServers ?? []).filter(isIPv4Address);
 
   if (!isIPv4Address(localIp)) {
-    const localCandidates = getLocalPrivateIpsFromOs();
-    localIp = localCandidates[0] ?? "";
+    const localCandidates = getLocalPrivateIpsFromOs().filter((ip) => !ip.startsWith("169.254."));
+    const wifiCandidates = getWifiPrivateIpsFromOs();
+    const preferWifi = ssid !== "Wired (Ethernet)" && ssid !== "Unknown";
+    localIp = preferWifi && wifiCandidates.length > 0 ? wifiCandidates[0] : (localCandidates[0] ?? "");
   }
 
   if (!isIPv4Address(gateway)) {

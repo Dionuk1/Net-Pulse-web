@@ -69,6 +69,24 @@ function isLikelyVirtualInterface(name: string): boolean {
   return /(loopback|vethernet|virtual|vmware|vbox|hyper-v|docker|wsl|tailscale|zerotier|hamachi|npcap)/i.test(name);
 }
 
+function getWifiPrivateIpsFromOs(): string[] {
+  const interfaces = os.networkInterfaces();
+  const ips: string[] = [];
+  for (const [interfaceName, entries] of Object.entries(interfaces)) {
+    if (!entries) continue;
+    if (isLikelyVirtualInterface(interfaceName)) continue;
+    if (!/(wi-?fi|wlan|wireless)/i.test(interfaceName)) continue;
+    for (const entry of entries) {
+      if (entry.family !== "IPv4") continue;
+      if (entry.internal) continue;
+      if (!isLocalIPv4(entry.address)) continue;
+      if (entry.address.startsWith("169.254.")) continue;
+      ips.push(entry.address);
+    }
+  }
+  return ips;
+}
+
 function parseArpEntries(output: string): Array<{ ip: string; mac: string }> {
   const results: Array<{ ip: string; mac: string }> = [];
   for (const line of output.split(/\r?\n/)) {
@@ -187,6 +205,17 @@ async function getGatewayFromRoute(): Promise<string> {
   return isIPv4Address(match[1]) ? match[1] : "";
 }
 
+async function getDefaultRoute(): Promise<{ gateway: string; interfaceIp: string }> {
+  const route = await runCommand("route", ["PRINT", "-4"], 5000);
+  if (!route.ok) return { gateway: "", interfaceIp: "" };
+  const match = route.output.match(/^\s*0\.0\.0\.0\s+0\.0\.0\.0\s+(\d+\.\d+\.\d+\.\d+)\s+(\d+\.\d+\.\d+\.\d+)/m);
+  if (!match) return { gateway: "", interfaceIp: "" };
+  return {
+    gateway: isIPv4Address(match[1]) ? match[1] : "",
+    interfaceIp: isIPv4Address(match[2]) ? match[2] : "",
+  };
+}
+
 function subnetPrefix(ip: string): string {
   const parts = ip.split(".");
   if (parts.length !== 4) return "";
@@ -265,8 +294,20 @@ try { $dns = (Get-DnsClientServerAddress -InterfaceIndex $cfg.InterfaceIndex -Ad
   const gatewayFromPs = (parsed.gateway || "").trim();
   const dns = Array.isArray(parsed.dns) ? parsed.dns.filter(isIPv4Address) : [];
 
-  const localIp = isIPv4Address(localIpFromPs) ? localIpFromPs : getLocalIpFromOs();
-  const gateway = isIPv4Address(gatewayFromPs) ? gatewayFromPs : await getGatewayFromRoute();
+  const defaultRoute = await getDefaultRoute();
+  const gateway = isIPv4Address(gatewayFromPs) ? gatewayFromPs : (defaultRoute.gateway || await getGatewayFromRoute());
+
+  const localCandidates = getLocalPrivateIpsFromOs().filter((ip) => !ip.startsWith("169.254."));
+  const wifiCandidates = getWifiPrivateIpsFromOs();
+  const preferWifi = ssid !== "Wired (Ethernet)" && ssid !== "Unknown";
+  const localFromRoute = defaultRoute.interfaceIp;
+  const localIp = preferWifi && wifiCandidates.length > 0
+    ? wifiCandidates[0]
+    : isIPv4Address(localIpFromPs) && localIpFromPs !== "0.0.0.0" && !localIpFromPs.startsWith("169.254.")
+      ? localIpFromPs
+      : isIPv4Address(localFromRoute) && !localFromRoute.startsWith("169.254.")
+        ? localFromRoute
+        : localCandidates[0] || getLocalIpFromOs();
 
   return { ssid, localIp, gateway, dns };
 }
