@@ -1,10 +1,10 @@
-# NetPulse Local Agent (Windows)
+﻿# RocketPing Local Agent (Windows)
 
-Lightweight local HTTP agent for NetPulse.
+Lightweight local HTTP agent for RocketPing.
 
 - Runtime: Node.js + TypeScript
 - Bind: `127.0.0.1:5055` only
-- Auth: `X-NETPULSE-TOKEN`
+- Auth: `X-RocketPing-TOKEN`
 - Platform: Windows
 
 ## 1) Setup
@@ -17,7 +17,7 @@ npm install
 Set token (PowerShell):
 
 ```powershell
-$env:NETPULSE_TOKEN="your-strong-shared-token"
+$env:RocketPing_TOKEN="your-strong-shared-token"
 ```
 
 ## 2) Run (dev)
@@ -47,7 +47,7 @@ Starts server on:
 
 All except `/health` require header:
 
-- `X-NETPULSE-TOKEN: <NETPULSE_TOKEN>`
+- `X-RocketPing-TOKEN: <RocketPing_TOKEN>`
 
 ## 5) Example requests
 
@@ -56,17 +56,17 @@ curl http://127.0.0.1:5055/health
 ```
 
 ```powershell
-curl -H "X-NETPULSE-TOKEN: your-strong-shared-token" http://127.0.0.1:5055/network/info
+curl -H "X-RocketPing-TOKEN: your-strong-shared-token" http://127.0.0.1:5055/network/info
 ```
 
 ```powershell
-curl -H "X-NETPULSE-TOKEN: your-strong-shared-token" "http://127.0.0.1:5055/ping?host=192.168.1.1"
+curl -H "X-RocketPing-TOKEN: your-strong-shared-token" "http://127.0.0.1:5055/ping?host=192.168.1.1"
 ```
 
 ```powershell
 curl -X POST http://127.0.0.1:5055/terminal/run `
   -H "Content-Type: application/json" `
-  -H "X-NETPULSE-TOKEN: your-strong-shared-token" `
+  -H "X-RocketPing-TOKEN: your-strong-shared-token" `
   -d "{\"cmd\":\"ipconfig\",\"args\":\"\"}"
 ```
 
@@ -77,7 +77,9 @@ Use NSSM:
 1. Install NSSM.
 2. Create service pointing to `node.exe`.
 3. Arguments: `dist/index.js`
-4. Startup directory: `...\netpulse-web\local-agent`
-5. Add environment variable `NETPULSE_TOKEN`.
+4. Startup directory: `...\RocketPing-web\local-agent`
+5. Add environment variable `RocketPing_TOKEN`.
 6. Start service and set startup type to Automatic.
+
+
 

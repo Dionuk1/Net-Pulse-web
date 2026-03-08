@@ -1,5 +1,5 @@
-const AGENT_URL = process.env.NETPULSE_AGENT_URL || "http://127.0.0.1:5055";
-const AGENT_TOKEN = process.env.NETPULSE_TOKEN || "change-me-local-token";
+const AGENT_URL = process.env.ROCKETPING_AGENT_URL || process.env.NETPULSE_AGENT_URL || "http://127.0.0.1:5055";
+const AGENT_TOKEN = process.env.ROCKETPING_TOKEN || process.env.NETPULSE_TOKEN || "change-me-local-token";
 
 function formatAgentNetworkError(error: unknown): Error {
   const message = error instanceof Error ? error.message : String(error);
@@ -17,6 +17,7 @@ export async function agentGet<T>(path: string): Promise<T> {
     response = await fetch(`${AGENT_URL}${path}`, {
       method: "GET",
       headers: {
+        "X-ROCKETPING-TOKEN": AGENT_TOKEN,
         "X-NETPULSE-TOKEN": AGENT_TOKEN,
       },
       cache: "no-store",
@@ -45,6 +46,7 @@ export async function agentPost<T>(path: string, body: Record<string, unknown>):
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "X-ROCKETPING-TOKEN": AGENT_TOKEN,
         "X-NETPULSE-TOKEN": AGENT_TOKEN,
       },
       body: JSON.stringify(body),

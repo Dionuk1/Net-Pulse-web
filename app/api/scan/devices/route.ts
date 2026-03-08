@@ -57,7 +57,7 @@ export async function GET() {
       return NextResponse.json(fallback, {
         headers: {
           "Cache-Control": "no-store, max-age=0",
-          "X-NetPulse-Data-Source": "fallback",
+          "X-RocketPing-Data-Source": "fallback",
         },
       });
     } catch (fallbackError) {

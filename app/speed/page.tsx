@@ -109,7 +109,7 @@ export default function SpeedPage() {
 
           <div className="mt-10 grid items-center gap-5 text-center md:grid-cols-[1fr_auto_1fr] md:text-left">
             <div>
-              <p className="text-4xl font-semibold text-[color:var(--np-text)]">{latestResult?.isp ?? "NetPulse"}</p>
+              <p className="text-4xl font-semibold text-[color:var(--np-text)]">{latestResult?.isp ?? "RocketPing"}</p>
               <p className="text-3xl text-[color:var(--np-muted)]">{latestResult?.publicIp ?? "0.0.0.0"}</p>
             </div>
 

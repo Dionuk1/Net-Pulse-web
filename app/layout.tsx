@@ -18,8 +18,16 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "NetPulse",
-  description: "Network monitoring dashboard",
+  title: {
+    default: "RocketPing",
+    template: "%s | RocketPing",
+  },
+  description: "RocketPing network monitoring dashboard",
+  icons: {
+    icon: "/branding/rocketping-mark.svg",
+    shortcut: "/branding/rocketping-mark.svg",
+    apple: "/branding/rocketping-mark.svg",
+  },
 };
 
 export default function RootLayout({

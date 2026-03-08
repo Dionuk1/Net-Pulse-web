@@ -1,0 +1,20 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="icoA" x1="19" y1="111" x2="110" y2="17" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1E4DFF"/>
+      <stop offset="1" stop-color="#4BE8FF"/>
+    </linearGradient>
+    <linearGradient id="icoB" x1="64" y1="23" x2="64" y2="105" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#89F2FF"/>
+      <stop offset="1" stop-color="#2588FF"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="30" fill="#091428"/>
+  <path d="M64 22C74 33 77 47 74 63L84 73L77 80L68 71C65 73 61 73 58 71L49 80L42 73L52 63C49 47 52 33 64 22Z" fill="url(#icoB)"/>
+  <circle cx="64" cy="46" r="6" fill="#0A1324"/>
+  <path d="M62 78H66L70 95L64 104L58 95L62 78Z" fill="url(#icoA)"/>
+  <path d="M24 55C20 63 20 66 24 73" stroke="url(#icoA)" stroke-width="5" stroke-linecap="round"/>
+  <path d="M36 47C29 58 29 71 36 82" stroke="url(#icoA)" stroke-width="5" stroke-linecap="round"/>
+  <path d="M104 55C108 63 108 66 104 73" stroke="url(#icoA)" stroke-width="5" stroke-linecap="round"/>
+  <path d="M92 47C99 58 99 71 92 82" stroke="url(#icoA)" stroke-width="5" stroke-linecap="round"/>
+</svg>

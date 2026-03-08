@@ -2,8 +2,9 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { RefreshCcw, Shield, Wifi } from "lucide-react";
+import { RefreshCcw, Shield } from "lucide-react";
 import AnimatedButton from "@/components/AnimatedButton";
+import BrandLogo from "@/components/BrandLogo";
 import Card from "@/components/Card";
 import CircularScore from "@/components/CircularScore";
 import LiveBandwidthWidget from "@/components/LiveBandwidthWidget";
@@ -158,9 +159,7 @@ export default function HomePage() {
     <main className="space-y-4 pb-4 md:space-y-6 md:pb-8">
       <header className="flex items-center justify-between gap-3 px-1 pt-3 md:px-0 md:pt-1">
         <div className="flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[color:var(--np-primary)]">
-            <Wifi size={20} className="text-white" />
-          </div>
+          <BrandLogo compact className="h-11 w-11" />
           <div>
             <h1 className="text-2xl font-semibold text-[color:var(--np-text)]">{t.homeTitle}</h1>
             <p className="text-sm text-[color:var(--np-muted)]">{t.dashboardTitle}</p>

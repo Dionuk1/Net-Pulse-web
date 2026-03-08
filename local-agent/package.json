@@ -2,7 +2,7 @@
   "name": "netpulse-local-agent",
   "version": "1.0.0",
   "private": true,
-  "description": "NetPulse Windows local agent (localhost:5055)",
+  "description": "RocketPing Windows local agent (localhost:5055)",
   "type": "module",
   "scripts": {
     "dev": "node --loader ts-node/esm src/index.ts",

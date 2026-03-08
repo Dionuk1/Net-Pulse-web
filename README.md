@@ -1,4 +1,4 @@
-# RocketPing
+﻿# RocketPing
 
 RocketPing is a **Windows-first local network monitoring dashboard** built with **Next.js (App Router)**, **TypeScript**, and **Tailwind CSS**.
 
@@ -96,7 +96,7 @@ https://www.speedtest.net/apps/cli
 After downloading, place the binary inside:
 `ookla-speedtest-1.2.0-win64/`
 
-NetPulse tries these locations automatically:
+RocketPing tries these locations automatically:
 1. `ROCKETPING_SPEEDTEST_BIN` env var
 2. `./ookla-speedtest-1.2.0-win64/speedtest.exe`
 3. Any `./ookla-speedtest*/speedtest.exe`
@@ -127,8 +127,8 @@ cd ..
 Create `.env.local` in project root:
 
 ```env
-NETPULSE_AGENT_URL=http://127.0.0.1:5055
-NETPULSE_TOKEN=change-me-local-token
+ROCKETPING_AGENT_URL=http://127.0.0.1:5055
+ROCKETPING_TOKEN=change-me-local-token
 # Optional:
 # ROCKETPING_SPEEDTEST_BIN=C:\Path\To\speedtest.exe
 ```
@@ -184,7 +184,7 @@ Base: `http://127.0.0.1:5055`
 Public:
 - `GET /health`
 
-Token required (`X-NETPULSE-TOKEN`):
+Token required (`X-ROCKETPING-TOKEN`):
 - `GET /network/info`
 - `GET /scan/devices`
 - `GET /scan/ports?ip=...&range=...`
@@ -206,7 +206,7 @@ Token required (`X-NETPULSE-TOKEN`):
 
 ## Why Local Agent?
 
-NetPulse uses a local agent to execute Windows network/system operations more safely and reliably than running all commands directly inside web routes.
+RocketPing uses a local agent to execute Windows network/system operations more safely and reliably than running all commands directly inside web routes.
 
 Benefits:
 - Keeps OS-level command execution isolated from UI logic
@@ -298,7 +298,7 @@ rocketping-web-app
 - Place `speedtest.exe` in one of supported paths, or set `ROCKETPING_SPEEDTEST_BIN`.
 
 ### Agent auth errors
-- Ensure `NETPULSE_TOKEN` in web app and local agent match exactly.
+- Ensure `ROCKETPING_TOKEN` in web app and local agent match exactly.
 
 ### Windows-only behavior
 - Some APIs are intentionally Windows-only and will return fallback/error on non-Windows platforms.
@@ -330,7 +330,7 @@ See the [LICENSE](LICENSE) file for full details.
 
 ## Contributing
 
-Contributions are welcome! If you'd like to improve NetPulse:
+Contributions are welcome! If you'd like to improve RocketPing:
 
 - Fork the repository
 - Create a new branch:
@@ -349,3 +349,6 @@ The project is open for improvements and new contributions.
 For collaboration, suggestions, or questions contact:
 
 Email: [dukshini123@gmail.com](mailto:dukshini123@gmail.com)
+
+
+

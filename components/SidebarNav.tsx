@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Activity, Home, Settings, Smartphone, Terminal, Zap } from "lucide-react";
+import BrandLogo from "@/components/BrandLogo";
 import useI18n from "@/lib/useI18n";
 
 export default function SidebarNav() {
@@ -21,7 +22,7 @@ export default function SidebarNav() {
   return (
     <nav className="print-hide sticky top-6 rounded-3xl border border-[color:var(--np-border)] bg-[color:var(--np-card)] p-4 backdrop-blur-xl">
       <div className="mb-6 px-2">
-        <p className="text-xs uppercase tracking-[0.2em] text-[color:var(--np-muted)]">NETPULSE</p>
+        <BrandLogo className="h-8 w-auto" />
         <h2 className="mt-1 text-xl font-semibold text-[color:var(--np-text)]">{t.navigation}</h2>
       </div>
 

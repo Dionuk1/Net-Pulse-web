@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
       if (/Local Agent is unreachable|fetch failed|ECONNREFUSED|ENOTFOUND|ETIMEDOUT/i.test(message)) {
         const fallbackResult = await runTerminalFallback(cmd, args);
         return NextResponse.json(normalizeTerminalResult(cmd, fallbackResult), {
-          headers: { "X-NetPulse-Data-Source": "fallback-local" },
+          headers: { "X-RocketPing-Data-Source": "fallback-local" },
         });
       }
       throw agentError;

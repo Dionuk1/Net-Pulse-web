@@ -32,7 +32,7 @@ export default function ReportPage() {
   return (
     <main className="space-y-4 pb-4 md:space-y-6 md:pb-8 report-print">
       <header className="space-y-2">
-        <h1 className="text-3xl font-bold">NetPulse Advanced Security Report</h1>
+        <h1 className="text-3xl font-bold">RocketPing Advanced Security Report</h1>
         <p className="text-sm text-white/60">
           Generated: {report ? fmtTime(report.generatedAt) : "Loading..."}
         </p>

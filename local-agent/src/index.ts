@@ -45,7 +45,7 @@ async function handleRequest(req: IncomingMessage, res: ServerResponse) {
   if (method === "GET" && path === "/health") {
     json(res, 200, {
       ok: true,
-      service: "netpulse-local-agent",
+      service: "rocketping-local-agent",
       platform: process.platform,
       uptimeSec: Math.round(process.uptime()),
       now: new Date().toISOString(),
@@ -54,7 +54,7 @@ async function handleRequest(req: IncomingMessage, res: ServerResponse) {
   }
 
   if (!requireToken(req)) {
-    json(res, 401, { error: "Unauthorized. Missing or invalid X-NETPULSE-TOKEN." });
+    json(res, 401, { error: "Unauthorized. Missing or invalid X-ROCKETPING-TOKEN." });
     return;
   }
 

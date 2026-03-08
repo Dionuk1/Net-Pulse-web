@@ -5,8 +5,8 @@ import {
   DEFAULT_COMMAND_TIMEOUT_MS,
   MAX_JSON_BODY_BYTES,
   MAX_OUTPUT_LENGTH,
-  NETPULSE_TOKEN,
-  TOKEN_HEADER,
+  ROCKETPING_TOKEN,
+  TOKEN_HEADERS,
 } from "./config.js";
 import type { IncomingMessage, ServerResponse } from "node:http";
 
@@ -48,9 +48,14 @@ export async function readJsonBody(req: IncomingMessage): Promise<JsonValue> {
 }
 
 export function requireToken(req: IncomingMessage): boolean {
-  const tokenHeader = req.headers[TOKEN_HEADER];
-  const token = Array.isArray(tokenHeader) ? tokenHeader[0] : tokenHeader;
-  return typeof token === "string" && token.length > 0 && timingSafeEquals(token, NETPULSE_TOKEN);
+  for (const headerName of TOKEN_HEADERS) {
+    const tokenHeader = req.headers[headerName];
+    const token = Array.isArray(tokenHeader) ? tokenHeader[0] : tokenHeader;
+    if (typeof token === "string" && token.length > 0 && timingSafeEquals(token, ROCKETPING_TOKEN)) {
+      return true;
+    }
+  }
+  return false;
 }
 
 function timingSafeEquals(a: string, b: string): boolean {

@@ -52,7 +52,7 @@ function toRoundedNumber(value: number | undefined): number {
 function resolveSpeedtestBin(): { bin: string | null; checked: string[] } {
   const checked: string[] = [];
 
-  const envBin = process.env.NETPULSE_SPEEDTEST_BIN?.trim();
+  const envBin = process.env.ROCKETPING_SPEEDTEST_BIN?.trim() || process.env.NETPULSE_SPEEDTEST_BIN?.trim();
   if (envBin) {
     checked.push(envBin);
     if (fs.existsSync(envBin)) {
@@ -114,7 +114,7 @@ export async function POST() {
     return NextResponse.json(
       {
         error:
-          "Speedtest executable not found. Add speedtest.exe under ./ookla-speedtest-1.2.0-win64/ or set NETPULSE_SPEEDTEST_BIN in .env.local.",
+          "Speedtest executable not found. Add speedtest.exe under ./ookla-speedtest-1.2.0-win64/ or set ROCKETPING_SPEEDTEST_BIN in .env.local.",
         checkedPaths: checked.slice(0, 6),
       },
       { status: 500 },

@@ -1,8 +1,8 @@
-# RocketPing
+﻿# RocketPing
 
-RocketPing është një **dashboard lokal për monitorim rrjeti në Windows** i ndërtuar me **Next.js (App Router)**, **TypeScript** dhe **Tailwind CSS**.
+RocketPing Ã«shtÃ« njÃ« **dashboard lokal pÃ«r monitorim rrjeti nÃ« Windows** i ndÃ«rtuar me **Next.js (App Router)**, **TypeScript** dhe **Tailwind CSS**.
 
-Ai kombinon një UI moderne në web me një agjent lokal të sigurt në Windows, që të mund të inspektoni LAN-in, të kryeni speed test, të monitoroni aktivitetin dhe të gjeneroni raporte nga një vend i vetëm.
+Ai kombinon njÃ« UI moderne nÃ« web me njÃ« agjent lokal tÃ« sigurt nÃ« Windows, qÃ« tÃ« mund tÃ« inspektoni LAN-in, tÃ« kryeni speed test, tÃ« monitoroni aktivitetin dhe tÃ« gjeneroni raporte nga njÃ« vend i vetÃ«m.
 
 ---
 
@@ -13,45 +13,45 @@ Ai kombinon një UI moderne në web me një agjent lokal të sigurt në Windows,
 
 ---
 
-## Çfarë Bën RocketPing
+## Ã‡farÃ« BÃ«n RocketPing
 
-RocketPing ju ndihmon të:
-- shihni detaje live të rrjetit (SSID, IP lokale, gateway, DNS)
-- skanoni pajisjet në LAN
-- ndiqni aktivitetin e rrjetit dhe ndryshimet e gjendjes së pajisjeve
+RocketPing ju ndihmon tÃ«:
+- shihni detaje live tÃ« rrjetit (SSID, IP lokale, gateway, DNS)
+- skanoni pajisjet nÃ« LAN
+- ndiqni aktivitetin e rrjetit dhe ndryshimet e gjendjes sÃ« pajisjeve
 - ekzekutoni speed test real me Ookla CLI
-- përdorni terminal të sigurt me komanda të lejuara
-- shihni tregues të trust score dhe rekomandime
-- gjeneroni raporte të avancuara lokale
+- pÃ«rdorni terminal tÃ« sigurt me komanda tÃ« lejuara
+- shihni tregues tÃ« trust score dhe rekomandime
+- gjeneroni raporte tÃ« avancuara lokale
 
 ---
 
-## Veçoritë Aktuale
+## VeÃ§oritÃ« Aktuale
 
 ### Dashboard Kryesor
-- Pamje kryesore me informacione live për rrjetin/trust score
-- UI e errët me stil security
-- Kontroll i gjuhës dhe temës
-- Mbështetje gjuhësore në UI: **Anglisht (`en`)** dhe **Shqip (`sq`)**
+- Pamje kryesore me informacione live pÃ«r rrjetin/trust score
+- UI e errÃ«t me stil security
+- Kontroll i gjuhÃ«s dhe temÃ«s
+- MbÃ«shtetje gjuhÃ«sore nÃ« UI: **Anglisht (`en`)** dhe **Shqip (`sq`)**
 
 ### Monitorimi i Pajisjeve dhe Aktivitetit
-- Skanime manuale / të planifikuara të pajisjeve lokale
+- Skanime manuale / tÃ« planifikuara tÃ« pajisjeve lokale
 - Activity feed me event snapshots
-- API route për scan, ping, vendor/os/ports
+- API route pÃ«r scan, ping, vendor/os/ports
 
 ### Speed Test
-- Ekzekutim real përmes `POST /api/speedtest/run`
+- Ekzekutim real pÃ«rmes `POST /api/speedtest/run`
 - Parsim JSON nga Ookla CLI (download/upload/ping/jitter/packet loss, etj.)
-- Historik speed test i ruajtur në SQLite lokale
+- Historik speed test i ruajtur nÃ« SQLite lokale
 - UI e personalizuar me GO button dhe animacione rocket/space
 
 ### Terminal i Sigurt
-- Ekzekutim komandash vetëm nga allowlist (përmes local agent)
+- Ekzekutim komandash vetÃ«m nga allowlist (pÃ«rmes local agent)
 
 ### Local Agent (Windows)
-- HTTP server i lehtë me Node.js + TypeScript
-- Binds vetëm në `127.0.0.1:5055`
-- Endpoints të mbrojtura me token (`X-ROCKETPING-TOKEN`)
+- HTTP server i lehtÃ« me Node.js + TypeScript
+- Binds vetÃ«m nÃ« `127.0.0.1:5055`
+- Endpoints tÃ« mbrojtura me token (`X-ROCKETPING-TOKEN`)
 - Rate limiting dhe kontroll localhost-only
 
 ---
@@ -64,7 +64,7 @@ RocketPing ju ndihmon të:
 - Tailwind CSS v4
 - SQLite (`node:sqlite`)
 - Framer Motion (animacione GO button/ring)
-- Lottie React (i disponueshëm në projekt)
+- Lottie React (i disponueshÃ«m nÃ« projekt)
 - Local Agent: Node.js + TypeScript
 
 ---
@@ -80,23 +80,23 @@ cd Net-Pulse-app
 
 ## Parakushtet
 
-### Të detyrueshme
+### TÃ« detyrueshme
 - Windows 10/11
-- Node.js 20+ (rekomandohet LTS më i fundit)
+- Node.js 20+ (rekomandohet LTS mÃ« i fundit)
 - npm
 
-### Opsionale (të rekomanduara)
+### Opsionale (tÃ« rekomanduara)
 - Ookla Speedtest CLI (`speedtest.exe`)
 
-RocketPing provon automatikisht këto lokacione:
+RocketPing provon automatikisht kÃ«to lokacione:
 1. variabla `ROCKETPING_SPEEDTEST_BIN`
 2. `./ookla-speedtest-1.2.0-win64/speedtest.exe`
-3. çdo `./ookla-speedtest*/speedtest.exe`
+3. Ã§do `./ookla-speedtest*/speedtest.exe`
 4. `C:\Tools\speedtest\speedtest.exe`
 
 ---
 
-## Instalimi i Varësive
+## Instalimi i VarÃ«sive
 
 Nga root i projektit:
 
@@ -104,7 +104,7 @@ Nga root i projektit:
 npm install
 ```
 
-Për local agent:
+PÃ«r local agent:
 
 ```bash
 cd local-agent
@@ -116,7 +116,7 @@ cd ..
 
 ## Konfigurimi i Environment
 
-Krijo `.env.local` në root të projektit:
+Krijo `.env.local` nÃ« root tÃ« projektit:
 
 ```env
 ROCKETPING_AGENT_URL=http://127.0.0.1:5055
@@ -125,7 +125,7 @@ ROCKETPING_TOKEN=change-me-local-token
 # ROCKETPING_SPEEDTEST_BIN=C:\Path\To\speedtest.exe
 ```
 
-I njëjti token duhet të përdoret edhe nga local agent.
+I njÃ«jti token duhet tÃ« pÃ«rdoret edhe nga local agent.
 
 ---
 
@@ -144,7 +144,7 @@ npm run dev
 npm run dev
 ```
 
-Hape në browser:
+Hape nÃ« browser:
 - `http://localhost:3000`
 - pamje speed:
   - `http://localhost:3000/speed`
@@ -152,7 +152,7 @@ Hape në browser:
 
 ---
 
-## Build për Production
+## Build pÃ«r Production
 
 ### Web app
 ```bash
@@ -176,7 +176,7 @@ Base: `http://127.0.0.1:5055`
 Publike:
 - `GET /health`
 
-Kërkojnë token (`X-NETPULSE-TOKEN`):
+KÃ«rkojnÃ« token (`X-ROCKETPING-TOKEN`):
 - `GET /network/info`
 - `GET /scan/devices`
 - `GET /scan/ports?ip=...&range=...`
@@ -190,32 +190,32 @@ Kërkojnë token (`X-NETPULSE-TOKEN`):
 ## Statusi i Projektit
 
 - Zhvillim aktiv lokal
-- Veçoritë kryesore janë implementuar dhe integruar
-- Iterim i vazhdueshëm në UI/animacione
-- Fokus në runtime Windows-first
+- VeÃ§oritÃ« kryesore janÃ« implementuar dhe integruar
+- Iterim i vazhdueshÃ«m nÃ« UI/animacione
+- Fokus nÃ« runtime Windows-first
 
 ---
 
 ## Pse Local Agent?
 
-NetPulse përdor local agent për të ekzekutuar operacione të rrjetit/sistemit në Windows në mënyrë më të sigurt dhe më të qëndrueshme, krahasuar me ekzekutimin direkt të komandave në web routes.
+RocketPing pÃ«rdor local agent pÃ«r tÃ« ekzekutuar operacione tÃ« rrjetit/sistemit nÃ« Windows nÃ« mÃ«nyrÃ« mÃ« tÃ« sigurt dhe mÃ« tÃ« qÃ«ndrueshme, krahasuar me ekzekutimin direkt tÃ« komandave nÃ« web routes.
 
-Përfitimet:
-- Izolon ekzekutimin e komandave të nivelit OS nga logjika e UI
+PÃ«rfitimet:
+- Izolon ekzekutimin e komandave tÃ« nivelit OS nga logjika e UI
 - Centralizon validimin e komandave dhe allowlist
-- Rrit qëndrueshmërinë për mjetet Windows-specific (scan/ping/terminal/network info)
-- E mban web app më të pastër duke përdorur proxy routes
+- Rrit qÃ«ndrueshmÃ«rinÃ« pÃ«r mjetet Windows-specific (scan/ping/terminal/network info)
+- E mban web app mÃ« tÃ« pastÃ«r duke pÃ«rdorur proxy routes
 
 ---
 
-## Shënime Sigurie
+## ShÃ«nime Sigurie
 
-- Agent bind vetëm në `127.0.0.1` (localhost-only)
-- Header token i detyrueshëm për route të mbrojtura:
+- Agent bind vetÃ«m nÃ« `127.0.0.1` (localhost-only)
+- Header token i detyrueshÃ«m pÃ«r route tÃ« mbrojtura:
   - `X-ROCKETPING-TOKEN`
-- Endpoint i terminalit përdor command allowlist
-- Input validation dhe output sanitization aplikohen në route të agent-it
-- Rate limiting bazik është aktiv në local agent
+- Endpoint i terminalit pÃ«rdor command allowlist
+- Input validation dhe output sanitization aplikohen nÃ« route tÃ« agent-it
+- Rate limiting bazik Ã«shtÃ« aktiv nÃ« local agent
 - Mbajeni `.env.local` private dhe mos commit secrets/token real
 
 ---
@@ -223,7 +223,7 @@ Përfitimet:
 ## Struktura e Projektit
 
 ```text
-netpulse-web
+RocketPing-web
 |-- app
 |   |-- api
 |   |   |-- activity/snapshot/route.ts
@@ -283,17 +283,17 @@ netpulse-web
 
 ## Zgjidhja e Problemeve
 
-### `/speed` ose `/speedtest` nuk përditësohet pas ndryshimeve
-- Rinise dev server dhe bëj hard refresh në browser (`Ctrl+F5`).
+### `/speed` ose `/speedtest` nuk pÃ«rditÃ«sohet pas ndryshimeve
+- Rinise dev server dhe bÃ«j hard refresh nÃ« browser (`Ctrl+F5`).
 
 ### Nuk gjendet `speedtest.exe`
-- Vendose `speedtest.exe` në një nga path-et e mbështetura ose vendos `NETPULSE_SPEEDTEST_BIN`.
+- Vendose `speedtest.exe` nÃ« njÃ« nga path-et e mbÃ«shtetura ose vendos `ROCKETPING_SPEEDTEST_BIN`.
 
-### Probleme me auth të agent-it
-- Verifiko që `NETPULSE_TOKEN` në web app dhe local agent të jetë i njëjtë.
+### Probleme me auth tÃ« agent-it
+- Verifiko qÃ« `ROCKETPING_TOKEN` nÃ« web app dhe local agent tÃ« jetÃ« i njÃ«jtÃ«.
 
 ### Sjellje Windows-only
-- Disa API janë qëllimisht vetëm për Windows dhe kthejnë fallback/error në platforma të tjera.
+- Disa API janÃ« qÃ«llimisht vetÃ«m pÃ«r Windows dhe kthejnÃ« fallback/error nÃ« platforma tÃ« tjera.
 
 ---
 
@@ -301,7 +301,7 @@ netpulse-web
 
 ### Root
 - `npm run dev` - nis Next.js dev server
-- `npm run build` - build për production
+- `npm run build` - build pÃ«r production
 - `npm run start` - nis production server
 - `npm run lint` - lint i codebase
 
@@ -316,28 +316,31 @@ netpulse-web
 
 Ky projekt licencohet me **MIT License**.
 
-Shiko [LICENSE](LICENSE) për detajet e plota.
+Shiko [LICENSE](LICENSE) pÃ«r detajet e plota.
 
 ---
 
 ## Kontributi
 
-Kontributet janë të mirëpritura! Nëse doni ta përmirësoni NetPulse:
+Kontributet janÃ« tÃ« mirÃ«pritura! NÃ«se doni ta pÃ«rmirÃ«soni RocketPing:
 
 - Fork repository
-- Krijo branch të ri:
+- Krijo branch tÃ« ri:
   `git checkout -b feature/your-feature-name`
-- Bëj ndryshimet dhe commit:
+- BÃ«j ndryshimet dhe commit:
   `git commit -m "Add new feature or improvement"`
-- Shtyje branch-in në fork-un tënd
-- Hape një Pull Request
+- Shtyje branch-in nÃ« fork-un tÃ«nd
+- Hape njÃ« Pull Request
 
 ---
 
 ## Kontakt
 
-Projekti është i hapur për përmirësime dhe kontribute të reja.
+Projekti Ã«shtÃ« i hapur pÃ«r pÃ«rmirÃ«sime dhe kontribute tÃ« reja.
 
-Për bashkëpunim, sugjerime ose pyetje:
+PÃ«r bashkÃ«punim, sugjerime ose pyetje:
 
 Email: [dukshini123@gmail.com](mailto:dukshini123@gmail.com)
+
+
+

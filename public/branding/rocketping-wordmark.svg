@@ -1,0 +1,25 @@
+<svg width="820" height="220" viewBox="0 0 820 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="wrA" x1="44" y1="175" x2="176" y2="36" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1E4DFF"/>
+      <stop offset="1" stop-color="#4BE8FF"/>
+    </linearGradient>
+    <linearGradient id="wrB" x1="318" y1="83" x2="742" y2="145" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EAF4FF"/>
+      <stop offset="1" stop-color="#2F9BFF"/>
+    </linearGradient>
+  </defs>
+  <rect width="820" height="220" rx="24" fill="#0A1230"/>
+  <g transform="translate(34 27)">
+    <path d="M92 18C106 33 111 52 106 75L120 89L111 98L98 85C93 88 87 88 82 85L69 98L60 89L74 75C69 52 74 33 92 18Z" fill="url(#wrA)"/>
+    <circle cx="92" cy="49" r="8" fill="#0A1324"/>
+    <path d="M89 98H95L100 122L92 134L84 122L89 98Z" fill="url(#wrA)"/>
+    <path d="M33 63C27 74 27 80 33 91" stroke="url(#wrA)" stroke-width="7" stroke-linecap="round"/>
+    <path d="M50 52C40 68 40 86 50 102" stroke="url(#wrA)" stroke-width="7" stroke-linecap="round"/>
+    <path d="M151 63C157 74 157 80 151 91" stroke="url(#wrA)" stroke-width="7" stroke-linecap="round"/>
+    <path d="M134 52C144 68 144 86 134 102" stroke="url(#wrA)" stroke-width="7" stroke-linecap="round"/>
+  </g>
+  <text x="250" y="140" fill="url(#wrB)" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="96" font-weight="700" letter-spacing="0.5">
+    RocketPing
+  </text>
+</svg>
