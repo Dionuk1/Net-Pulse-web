@@ -60,8 +60,8 @@ export default function AnimatedButton({
 
   const variantClasses =
     variant === "primary"
-      ? "bg-[color:var(--np-primary)] text-[color:var(--np-text)]"
-      : "bg-[color:var(--np-surface)] text-[color:var(--np-text)] border border-[color:var(--np-border)]";
+      ? "border border-transparent bg-[color:var(--np-primary)] text-white shadow-[var(--np-shadow-soft)]"
+      : "border border-[color:var(--np-border)] bg-[color:var(--np-surface)] text-[color:var(--np-text)] shadow-[var(--np-shadow-soft)]";
 
   const disabledClasses = isDisabled ? "opacity-60 cursor-not-allowed" : "";
 
@@ -70,7 +70,7 @@ export default function AnimatedButton({
       type="button"
       onClick={handleClick}
       disabled={isDisabled}
-      className={`relative overflow-hidden transition-transform duration-100 active:scale-[0.97] hover:brightness-110 ${variantClasses} ${disabledClasses} ${className}`}
+      className={`relative overflow-hidden transition-[transform,filter,box-shadow,background-color,border-color] duration-150 active:scale-[0.97] hover:brightness-[1.03] hover:shadow-[var(--np-shadow-card)] ${variantClasses} ${disabledClasses} ${className}`}
     >
       {ripples.map((ripple) => (
         <span

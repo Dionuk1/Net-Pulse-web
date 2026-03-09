@@ -20,7 +20,7 @@ export default function SidebarNav() {
   ];
 
   return (
-    <nav className="print-hide sticky top-6 rounded-3xl border border-[color:var(--np-border)] bg-[color:var(--np-card)] p-4 backdrop-blur-xl">
+    <nav className="print-hide sticky top-6 rounded-3xl border border-[color:var(--np-border)] bg-[color:var(--np-glass-bg)] p-4 shadow-[var(--np-shadow-card)] backdrop-blur-xl">
       <div className="mb-6 px-2">
         <BrandLogo className="h-8 w-auto" />
         <h2 className="mt-1 text-xl font-semibold text-[color:var(--np-text)]">{t.navigation}</h2>
@@ -37,8 +37,8 @@ export default function SidebarNav() {
               href={tab.href}
               className={
                 active
-                  ? "flex items-center gap-3 rounded-2xl bg-[color:var(--np-primary)]/20 px-3 py-2.5 text-[color:var(--np-text)]"
-                  : "flex items-center gap-3 rounded-2xl px-3 py-2.5 text-[color:var(--np-muted)] hover:bg-[color:var(--np-surface)] hover:text-[color:var(--np-text)]"
+                  ? "flex items-center gap-3 rounded-2xl border border-[color:var(--np-border)] bg-[color:var(--np-primary)]/14 px-3 py-2.5 text-[color:var(--np-text)] shadow-[var(--np-shadow-soft)]"
+                  : "flex items-center gap-3 rounded-2xl border border-transparent px-3 py-2.5 text-[color:var(--np-muted)] hover:border-[color:var(--np-border)] hover:bg-[color:var(--np-surface)] hover:text-[color:var(--np-text)]"
               }
             >
               <Icon size={18} className={active ? "text-[color:var(--np-primary-soft)]" : "text-[color:var(--np-muted)]"} />

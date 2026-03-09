@@ -20,14 +20,18 @@ export default function BottomNav() {
 
   return (
     <nav className="print-hide fixed inset-x-0 bottom-0 z-50 md:hidden pb-[env(safe-area-inset-bottom)]">
-      <div className="mx-auto w-full max-w-[430px] border-t border-[color:var(--np-border)] bg-[color:var(--np-surface)] px-2 py-2 shadow-[0_-10px_24px_rgba(1,7,15,0.5)]">
+      <div className="mx-auto w-full max-w-[430px] border-t border-[color:var(--np-border)] bg-[color:var(--np-glass-bg)] px-2 py-2 shadow-[var(--np-shadow-nav)] backdrop-blur-xl">
         <div className="grid grid-cols-6">
           {tabs.map((tab) => {
             const active = pathname === tab.href;
             const Icon = tab.icon;
 
             return (
-              <Link key={tab.href} href={tab.href} className="flex flex-col items-center gap-1 py-1">
+              <Link
+                key={tab.href}
+                href={tab.href}
+                className={active ? "flex flex-col items-center gap-1 rounded-2xl border border-[color:var(--np-border)] bg-[color:var(--np-primary)]/12 py-1 shadow-[var(--np-shadow-soft)]" : "flex flex-col items-center gap-1 rounded-2xl border border-transparent py-1"}
+              >
                 <Icon size={24} className={active ? "text-[color:var(--np-primary)]" : "text-[color:var(--np-muted)]"} strokeWidth={2.2} />
                 <span className={active ? "text-[13px] font-medium text-[color:var(--np-primary-soft)]" : "text-[13px] text-[color:var(--np-muted)]"}>{tab.label}</span>
               </Link>

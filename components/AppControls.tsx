@@ -10,12 +10,12 @@ export default function AppControls() {
 
   return (
     <div className="print-hide mb-4 flex flex-wrap items-center justify-end gap-2">
-      <label className="flex items-center gap-2 rounded-xl border border-[color:var(--np-border)] bg-[color:var(--np-card)] px-3 py-2 text-xs text-[color:var(--np-muted)]">
+      <label className="flex items-center gap-2 rounded-xl border border-[color:var(--np-border)] bg-[color:var(--np-card)] px-3 py-2 text-xs text-[color:var(--np-muted)] shadow-[var(--np-shadow-soft)]">
         {t.language}
         <select
           value={settings.language}
           onChange={(event) => updateSettings({ language: event.target.value as "en" | "sq" })}
-          className="rounded-md border border-[color:var(--np-border)] bg-[color:var(--np-surface)] px-2 py-1 text-xs text-[color:var(--np-text)]"
+          className="rounded-md border border-[color:var(--np-border)] bg-[color:var(--np-surface)] px-2 py-1 text-xs text-[color:var(--np-text)] shadow-[inset_0_1px_0_rgba(255,255,255,0.18)]"
           aria-label={t.language}
         >
           <option value="en">{languageLabel.en}</option>
@@ -26,7 +26,7 @@ export default function AppControls() {
       <button
         type="button"
         onClick={() => updateSettings({ theme: settings.theme === "dark" ? "light" : "dark" })}
-        className="flex items-center gap-2 rounded-xl border border-[color:var(--np-border)] bg-[color:var(--np-card)] px-3 py-2 text-xs text-[color:var(--np-text)] transition hover:bg-[color:var(--np-surface)]"
+        className="flex items-center gap-2 rounded-xl border border-[color:var(--np-border)] bg-[color:var(--np-card)] px-3 py-2 text-xs text-[color:var(--np-text)] shadow-[var(--np-shadow-soft)] transition hover:bg-[color:var(--np-surface)]"
         aria-label={settings.theme === "dark" ? t.lightMode : t.darkMode}
       >
         {settings.theme === "dark" ? <Sun size={14} /> : <Moon size={14} />}

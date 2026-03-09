@@ -17,6 +17,7 @@ function clamp(value: number, min: number, max: number): number {
 export default function SpeedPage() {
   const { settings } = useSettings();
   const isSq = settings.language === "sq";
+  const isLight = settings.theme === "light";
   const ui = isSq
     ? {
         connecting: "Po lidhet...",
@@ -136,7 +137,7 @@ export default function SpeedPage() {
 
   return (
     <main className="space-y-6 pb-8">
-      <Card className="border-[color:var(--np-border)] bg-[linear-gradient(180deg,#121633_0%,#0a1224_100%)] p-6">
+      <Card className={isLight ? "border-[color:var(--np-border)] bg-[linear-gradient(180deg,#ffffff_0%,#f4f7fb_100%)] p-6" : "border-[color:var(--np-border)] bg-[linear-gradient(180deg,#121633_0%,#0a1224_100%)] p-6"}>
         <div className="mx-auto max-w-3xl">
           <div className="flex justify-center">
             <GoSpeedtestButton state={phase} progress={ringProgress} phaseText={statusText} onClick={() => void runSpeedTest()} />

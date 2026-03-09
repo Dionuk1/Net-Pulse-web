@@ -11,7 +11,7 @@ type CardProps = {
 export default function Card({ children, className = "", title, subtitle, right }: CardProps) {
   return (
     <section
-      className={`rounded-3xl border border-[color:var(--np-border)] bg-[color:var(--np-card)] p-4 shadow-[0_14px_36px_rgba(2,8,18,0.45)] backdrop-blur-xl ${className}`}
+      className={`rounded-3xl border border-[color:var(--np-border)] bg-[color:var(--np-card)] p-4 shadow-[var(--np-shadow-card)] backdrop-blur-xl ${className}`}
     >
       {(title || subtitle || right) && (
         <header className="mb-3 flex items-start justify-between gap-3">

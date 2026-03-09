@@ -23,6 +23,8 @@ export default function GoSpeedtestButton({ state, onClick, progress = 0, phaseT
   const accent = state === "error" ? "var(--np-danger)" : state === "done" ? "var(--np-accent)" : "var(--np-primary)";
   const duration = ringDuration(state);
   const safeProgress = Math.max(0, Math.min(100, progress));
+  const primaryLabelColor = state === "running" ? "#f4fbff" : "#ffffff";
+  const secondaryLabelColor = state === "running" ? "rgba(210, 231, 248, 0.9)" : "rgba(205, 224, 240, 0.82)";
 
   return (
     <button
@@ -74,10 +76,22 @@ export default function GoSpeedtestButton({ state, onClick, progress = 0, phaseT
       )}
 
       <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span className="text-5xl font-light tracking-wide text-white">
+        <span
+          className="text-5xl font-light tracking-wide"
+          style={{
+            color: primaryLabelColor,
+            textShadow: "0 2px 18px rgba(4, 14, 28, 0.35)",
+          }}
+        >
           {state === "running" ? Math.round(safeProgress) : "GO"}
         </span>
-        <span className="mt-2 text-xs uppercase tracking-[0.22em] text-[color:var(--np-muted)]">
+        <span
+          className="mt-2 text-xs uppercase tracking-[0.22em]"
+          style={{
+            color: secondaryLabelColor,
+            textShadow: "0 1px 10px rgba(4, 14, 28, 0.28)",
+          }}
+        >
           {state === "running" ? phaseText || "Running" : state}
         </span>
       </div>
