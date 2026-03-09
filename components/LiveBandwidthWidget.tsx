@@ -32,8 +32,8 @@ export default function LiveBandwidthWidget() {
     ? {
         title: "Monitorimi i Gjerësisë së Bandës në Kohë Reale",
         detecting: "Po zbulohet adaptori...",
-        download: "Shkarkim",
-        upload: "Ngarkim",
+        download: "Download",
+        upload: "Upload",
         collecting: "Po mblidhen mostra në kohë reale...",
         updatesEvery: "Përditësohet çdo",
         seconds: "sekonda",
